@@ -1,13 +1,11 @@
-const { useContext, createContext, useState, useEffect } = require("react");
+const { createContext, useState, useEffect } = require("react");
 
 export const ThemeContext = createContext("light ");
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
     const storedTheme = localStorage.getItem("theme") || "lights";
     setTheme(storedTheme);
   }, []);
@@ -17,13 +15,9 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem("theme", theme);
   };
 
-  if (!isMounted) {
-    return <div>Loading ...</div>;
-  }
-
   return (
-    <ThemeContext.Provider value={{ theme, changeTheme }}>
-      {children}
+    <ThemeContext.Provider value={{ changeTheme }}>
+      <div data-theme={theme}>{children}</div>
     </ThemeContext.Provider>
   );
 };
