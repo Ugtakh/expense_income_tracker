@@ -16,8 +16,7 @@ const signin = async (req, res) => {
   try {
     const { userEmail, userPassword } = req.body;
 
-    const findUser =
-      await sql`SELECT name, email, password FROM users WHERE email='${userEmail}' OR 1=1`;
+    const findUser = await sql`SELECT * FROM users WHERE email=${userEmail}`;
 
     if (findUser.length === 0) {
       return res.status(400).json({ message: "user not found" });

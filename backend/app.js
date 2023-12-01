@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
@@ -9,9 +10,11 @@ const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "images/")));
 
 // Authentication
 app.use("/auth", authRoutes);
+//http://localhost:8008/api/image
 app.use("/api/image", imageRoutes);
 
 app.listen(PORT, () => {
