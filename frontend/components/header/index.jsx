@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { DefLogo } from "../logo/Logo";
-import RecordForm from "../form/addRecordForm";
+import { DefLogo } from "@/components/Logos";
+import RecordForm from "@/components/form/addRecordForm";
 
 const navigations = [
   { name: "Dashboard", path: "/" },
