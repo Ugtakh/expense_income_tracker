@@ -3,15 +3,16 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserProvider from "@/context/UserProvider";
 import { ThemeProvider } from "@/context/ThemeContex";
+import { StepProvider } from "@/context/StepContext";
 
 export default function App({ Component, pageProps }) {
   return (
     <UserProvider>
       <ThemeProvider>
-        <div>
+        <StepProvider>
           <Component {...pageProps} />
           <ToastContainer />
-        </div>
+        </StepProvider>
       </ThemeProvider>
     </UserProvider>
   );

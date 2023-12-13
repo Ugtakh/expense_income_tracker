@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
 const imageRoutes = require("./routes/imageRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const PORT = process.env.PORT;
 
@@ -17,6 +18,8 @@ app.use("/images", express.static(path.join(__dirname, "images/")));
 
 // Authentication
 app.use("/auth", authRoutes);
+app.use("/users/", userRoutes);
+
 //http://localhost:8008/api/image
 app.use("/api/image", imageRoutes);
 

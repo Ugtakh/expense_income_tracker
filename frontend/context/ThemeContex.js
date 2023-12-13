@@ -6,7 +6,7 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") || "lights";
+    const storedTheme = localStorage.getItem("theme") || "light";
     setTheme(storedTheme);
   }, []);
 
@@ -16,8 +16,8 @@ export const ThemeProvider = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ changeTheme }}>
-      <div>{children}</div>
+    <ThemeContext.Provider value={{ theme, changeTheme }}>
+      <div data-theme={theme}>{children}</div>
     </ThemeContext.Provider>
   );
 };

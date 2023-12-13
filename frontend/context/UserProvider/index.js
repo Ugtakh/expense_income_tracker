@@ -8,26 +8,39 @@ export const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [loginUserData, setLoginUserData] = useState({
+  const [loading, setLoading] = useState(false);
+
+  const [formUserData, setLoginUserData] = useState({
     email: "naraa@gmail.com",
     password: "",
+    rePassword: "",
+    name: "",
+    currency_type: "",
+    balance: 0,
   });
 
-  const changeLoginUserData = (key, value) => {
-    setLoginUserData({ ...loginUserData, [key]: value });
+  const changeFormUserData = (key, value) => {
+    setLoginUserData({ ...formUserData, [key]: value });
   };
 
   const login = async () => {
-    console.log("email", loginUserData.email);
-    console.log("pass", loginUserData.password);
-    if (!loginUserData.email || !loginUserData.password) {
+    console.log("email", formUserData.email);
+    console.log("pass", formUserData.password);
+    if (!formUserData.email || !formUserData.password) {
       alert("Email эсвэл Password Заавал бөглөх ёстой");
       return;
     }
+
+    if (!formUserData.email.includes("@")) {
+      alert("Email эсвэл Password Заавал бөглөх ёстой");
+      return;
+    }
+
     try {
+      setLoading(true);
       const { data } = await axios.post("http://localhost:8008/auth/signin", {
-        userEmail: loginUserData.email,
-        userPassword: loginUserData.password,
+        userEmail: formUserData.email,
+        userPassword: formUserData.password,
       });
       console.log("DDD++++++>", data.user);
       setUser(data.user);
@@ -35,6 +48,8 @@ const UserProvider = ({ children }) => {
     } catch (error) {
       console.log("error", error);
       toast.error(`${error.response.data.message}`, { autoClose: 3000 });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,14 +57,45 @@ const UserProvider = ({ children }) => {
     setUser(null);
   };
 
-  const signup = () => {};
+  const signup = async () => {
+    if (
+      !formUserData.email ||
+      !formUserData.password ||
+      !formUserData.rePassword ||
+      !formUserData.name
+    ) {
+      alert("Хоосон талбаруууд байж болохгүй");
+      return;
+    }
+
+    if (formUserData.password !== formUserData.rePassword) {
+      alert("Нууц үг хоорондоо тохирохгүй байна.");
+      return;
+    }
+
+    try {
+      const { data } = await axios.post("http://localhost:8008/auth/signup", {
+        email: formUserData.email,
+        password: formUserData.password,
+        name: formUserData.name,
+      });
+      console.log(data);
+      setUser(data.user);
+      router.push("/step-one");
+    } catch (error) {
+      console.log(error);
+      toast.error(`${error.message}`, { autoClose: 3000 });
+    }
+  };
 
   return (
     <UserContext.Provider
       value={{
         user,
-        loginUserData,
-        changeLoginUserData,
+        setUser,
+        loading,
+        formUserData,
+        changeFormUserData,
         login,
         logout,
         signup,

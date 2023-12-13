@@ -4,7 +4,8 @@ import { useContext } from "react";
 import { UserContext } from "@/context/UserProvider";
 
 export default function LogIn() {
-  const { loginUserData, changeLoginUserData, login } = useContext(UserContext);
+  const { formUserData, changeFormUserData, login, loading } =
+    useContext(UserContext);
   const router = useRouter();
 
   return (
@@ -23,8 +24,9 @@ export default function LogIn() {
           }}
           placeholder="Email"
           className="input input-bordered bg-[#F3F4F6] border-neutral-200 w-full mt-6 max-w-xs"
-          value={loginUserData.email}
+          value={formUserData.email}
         />
+
         <input
           type="password"
           name="password"
@@ -33,10 +35,11 @@ export default function LogIn() {
           }}
           placeholder="Password"
           className="input input-bordered bg-[#F3F4F6] border-neutral-200 w-full max-w-xs"
-          value={loginUserData.password}
+          value={formUserData.password}
         />
         <button
           onClick={login}
+          disabled={loading}
           className="btn btn-primary w-full max-w-xs text-lg text-white font-normal rounded-full"
         >
           Log in
@@ -45,7 +48,7 @@ export default function LogIn() {
           <h3 className="text-[#334155]">Don't have an account?</h3>
           <button
             className="text-[#0166FF]"
-            onClick={() => router.push("/sign-up")}
+            onClick={() => router.push("/signup")}
           >
             Sign up
           </button>
