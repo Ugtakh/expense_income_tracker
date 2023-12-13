@@ -1,9 +1,21 @@
-import { ThemeContext } from "@/context/ThemeContex";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import { FaBeer, FaHome } from "react-icons/fa";
+import { UserContext } from "@/context/UserProvider";
 
 export default function Home() {
-  const { changeTheme } = useContext(ThemeContext);
+  const router = useRouter();
+  const { user, logout } = useContext(UserContext);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user]);
+
+  if (!user) {
+    return null;
+  }
 
   const getIcons = (name, color) => {
     const icons = {
@@ -15,33 +27,15 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24`}
+      className={`flex min-h-screen flex-col items-center justify-between `}
     >
-      <button className="btn btn-primary" onClick={() => changeTheme("light")}>
-        Light
-      </button>
-      <audio
-        src="http://localhost:8008/images/image-1701425564623.mp3"
-        controls
-        autoPlay
-      ></audio>
-
-      <input type="file" />
-
-      <FaBeer
-        onClick={() => {
-          console.log("beer");
-        }}
-        size={90}
-        color={"violet"}
-      />
-
-      <FaHome size={90} color={"blue"} />
-      {/* {getIcons(category.iconName, category.iconColor)} */}
-
-      <button className="btn btn-primary" onClick={() => changeTheme("dark")}>
-        Dark
-      </button>
+      <div>
+        <h1>Welcome Home Page - {user.name}</h1>
+        <h2>Email: {user.email}</h2>
+        <button className="btn" onClick={logout}>
+          logout
+        </button>
+      </div>
     </main>
   );
 }

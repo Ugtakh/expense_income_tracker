@@ -1,11 +1,13 @@
 import "@/styles/globals.css";
-
-import { ThemeProvider } from "@/context/ThemeContex";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import UserProvider from "@/context/UserProvider";
 
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider>
+    <UserProvider>
       <Component {...pageProps} />
-    </ThemeProvider>
+      <ToastContainer />
+    </UserProvider>
   );
 }

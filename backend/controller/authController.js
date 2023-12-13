@@ -23,7 +23,7 @@ const signin = async (req, res) => {
     }
 
     const isCheck = bcrypt.compareSync(userPassword, findUser[0].password);
-
+    console.log("Login", isCheck);
     if (!isCheck) {
       return res.status(400).json({ message: "wrong username or password" });
     }
