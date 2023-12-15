@@ -65,7 +65,7 @@ export default function Signup() {
         <div className="flex gap-2 mt-7">
           <h3 className="text-[#334155]">Already have account?</h3>
           <button
-            onClick={() => router.push("/log")}
+            onClick={() => router.push("/login")}
             className="text-[#0166FF]"
           >
             Log in
