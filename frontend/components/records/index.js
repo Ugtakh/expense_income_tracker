@@ -8,7 +8,7 @@ import BottomRecord from "./recordRight/BottomPart/BottomRecord";
 const Records = () => {
   return (
     <div className="flex container py-6 mx-auto">
-      <div className="flex-0.5 border-2 bg-[#F9FAFB] px-5 py-8 rounded-xl">
+      <div className="flex-4 border-2 bg-[#F9FAFB] px-5 py-8 rounded-xl">
         <RecordSmall />
         <RecordBig />
         <Range />

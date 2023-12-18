@@ -2,8 +2,15 @@ import axios from "axios";
 import React, { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import * as Yup from "yup";
 
 export const UserContext = createContext();
+
+const userSchema = Yup.object().shape({
+  email: Yup.string().required().email(),
+  name: Yup.string().required(),
+  password: Yup.string().required().min(6),
+});
 
 const UserProvider = ({ children }) => {
   const router = useRouter();
@@ -58,6 +65,18 @@ const UserProvider = ({ children }) => {
   };
 
   const signup = async () => {
+    // validation
+    try {
+      const res = await userSchema.validate(formUserData);
+      console.log("VALIDATION", res);
+    } catch (error) {
+      console.log("VALID ERRORS", error.errors);
+      // console.log("VALID ERRORS", error);
+      for (const k in error) {
+        console.log("K-" + k, error[k]);
+      }
+    }
+
     if (
       !formUserData.email ||
       !formUserData.password ||

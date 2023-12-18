@@ -6,7 +6,7 @@ import ExpenseCard from "./ExpenseCard";
 
 const TopSection = () => {
   return (
-    <div className="grid grid-cols-3 gap-10 ">
+    <div className="container grid grid-cols-3 gap-10 ">
       <Card />
       <IncomeCard />
       <ExpenseCard />
