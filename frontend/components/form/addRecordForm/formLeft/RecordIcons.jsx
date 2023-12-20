@@ -1,3 +1,4 @@
+import { getIcons } from "@/utils";
 import React from "react";
 
 const RecordIcons = ({ category, changeTransactionData }) => {

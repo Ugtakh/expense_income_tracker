@@ -33,7 +33,6 @@ export default function Home() {
         <Top />
         <MiddleSection />
         <BottomSection />
-        <input type="color" />
       </main>
     </div>
   );
