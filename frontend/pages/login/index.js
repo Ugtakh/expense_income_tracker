@@ -20,7 +20,7 @@ export default function LogIn() {
           type="text"
           name="email"
           onChange={(e) => {
-            changeLoginUserData(e.target.name, e.target.value);
+            changeFormUserData(e.target.name, e.target.value);
           }}
           placeholder="Email"
           className="input input-bordered bg-[#F3F4F6] border-neutral-200 w-full mt-6 max-w-xs"
@@ -31,7 +31,7 @@ export default function LogIn() {
           type="password"
           name="password"
           onChange={(e) => {
-            changeLoginUserData(e.target.name, e.target.value);
+            changeFormUserData(e.target.name, e.target.value);
           }}
           placeholder="Password"
           className="input input-bordered bg-[#F3F4F6] border-neutral-200 w-full max-w-xs"
