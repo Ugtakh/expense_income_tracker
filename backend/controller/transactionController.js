@@ -65,8 +65,17 @@ const getTotalIncomeExpense = async (req, res) => {
     const { userId } = req.body;
 
     const data =
-      await sql`SELECT SUM(amount) as total FROM transactions WHERE transaction_type='INC'`;
-    res.status(201).json({ message: "success", totalIncome: data[0].total });
+      await sql`SELECT transaction_type, SUM(amount) as total FROM transactions GROUP BY transaction_type`;
+    console.log("data", data);
+    const [inc] = data.filter((el) => el.transaction_type === "INC");
+    const [exp] = data.filter((el) => el.transaction_type === "EXP");
+    console.log("INC", inc);
+    console.log("EXP", exp);
+    res.status(201).json({
+      message: "success",
+      totalIncome: inc.total,
+      totalExpense: exp.total,
+    });
   } catch (error) {
     console.log("ERR", error);
     res.status(500).json({ message: "failed" });

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { IconThree, IconFour } from "../Logos";
-import Income from "./Income";
-
 import myAxios from "@/utils/axios";
+import Income from "./Income";
+import Expense from "./Expense";
 
 const TopInfo = () => {
   const [totals, setTotals] = useState({ totalIncome: 0, totalExpense: 0 });
@@ -10,9 +9,9 @@ const TopInfo = () => {
   const getTotalIncExp = async () => {
     console.log("START");
     const {
-      data: { totalIncome },
-    } = await myAxios.get("/transactions/totalIncome");
-    setTotals({ ...totals, totalIncome });
+      data: { totalIncome, totalExpense },
+    } = await myAxios.get("/transactions/total");
+    setTotals({ ...totals, totalIncome, totalExpense });
     console.log("END");
   };
 
@@ -28,27 +27,7 @@ const TopInfo = () => {
       </div>
       {/* IncomeCard */}
       <Income totalIncome={totals.totalIncome} />
-      <div className="flex-1 ml-7 p-4 bg-white rounded-2xl">
-        <div className="flex items-center border-b-2 mb-3 pb-2 text-xs">
-          <IconFour />
-          <p className="ml-1 lg:text-base">Total Expenses</p>
-        </div>
-        <div>
-          <span className="font-bold lg:text-4xl md:text-2xl text-xl">
-            {" "}
-            -80,500,000₮
-          </span>
-          <p className="text-xs lg:text-base lg:my-4 md:my-3 my-2 text-slate-500">
-            Your Expense Amount
-          </p>
-          <div className="flex items-center ">
-            <IconThree />
-            <span className="ml-1 lg:text-base text-xs">
-              32% from last month
-            </span>
-          </div>
-        </div>
-      </div>
+      <Expense totalExpense={totals.totalExpense} />
     </div>
   );
 };

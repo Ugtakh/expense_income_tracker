@@ -7,7 +7,7 @@ const {
 
 const router = Router();
 
-router.route("/totalIncome").get(getTotalIncomeExpense);
+router.route("/total").get(getTotalIncomeExpense);
 router.route("/:userId").get(getAllTransaction);
 router.route("/").post(createTransaction);
 
