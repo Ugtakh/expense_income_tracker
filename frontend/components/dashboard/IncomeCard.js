@@ -10,7 +10,7 @@ const IncomeCard = () => {
           <TbPointFilled color="green" />
           <h2 className="card-title ">Your Income </h2>
         </div>
-        <h1 className="font-semibold text-3xl">1,200,000$</h1>
+        <h1 className="font-semibold text-3xl">190,200,000$</h1>
         <span className="opacity-50">Your Income Account</span>
         <div className="flex items-end  ">
           <FaArrowAltCircleUp color="green" size={20} className="mr-2" />

@@ -10,7 +10,29 @@ const getAllTransaction = async (req, res) => {
     res.status(200).json({ message: "success", transactions });
   } catch (error) {
     console.log("ERR", error);
-    res.status(500).json({ message: "failed" });
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getBarGraphData = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const barGraphData = await sql`
+      SELECT
+        EXTRACT(YEAR FROM updated_at) AS year,
+        EXTRACT(MONTH FROM updated_at) AS month,
+        transaction_type,
+        SUM(amount) AS total_amount
+      
+      FROM
+        transactions
+      GROUP BY
+        transaction_type, year, month;
+    `;
+    console.log(barGraphData);
+  } catch (error) {
+    console.log("ERR", error);
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -32,11 +54,27 @@ const createTransaction = async (req, res) => {
     const data =
       await sql`INSERT INTO transactions(user_id, category_id, name, amount, description, transaction_type, updated_at) VALUES(${userId}, ${categoryId}, ${transaction_name}, ${amount}, ${description}, ${transaction_type}, ${updated_at}) RETURNING *`;
     res.status(201).json({ message: "success", transaction: data[0] });
-    // res.json({ ss: "" });
   } catch (error) {
     console.log("ERR", error);
     res.status(500).json({ message: "failed" });
   }
 };
 
-module.exports = { createTransaction, getAllTransaction };
+const getTotalIncomeExpense = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const data =
+      await sql`SELECT SUM(amount) as total FROM transactions WHERE transaction_type='INC'`;
+    res.status(201).json({ message: "success", totalIncome: data[0].total });
+  } catch (error) {
+    console.log("ERR", error);
+    res.status(500).json({ message: "failed" });
+  }
+};
+
+module.exports = {
+  createTransaction,
+  getAllTransaction,
+  getTotalIncomeExpense,
+};

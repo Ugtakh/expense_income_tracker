@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import myAxios from "@/utils/axios";
+import myAxios from "@/utils/axios";
 
 export const TransactionContext = createContext(null);
 
@@ -46,20 +46,20 @@ const TransactionProvider = ({ children }) => {
     try {
       const {
         data: { transactions },
-      } = await axios.get(
-        "http://localhost:8008/transactions/06abd39d-0523-4749-b99e-28dc147ad222"
+      } = await myAxios.get(
+        "/transactions/06abd39d-0523-4749-b99e-28dc147ad222"
       );
       console.log("TRA");
       // toast.success("Гүйлгээнүүдийг амжилттай татлаа.");
       setTransactions(transactions);
     } catch (error) {
       console.log("TER", error);
-      toast.error("Гүйлгээг нэмэхэд алдаа гарлаа.");
+      // toast.error("Гүйлгээг нэмэхэд алдаа гарлаа.");
     }
   };
 
   useEffect(() => {
-    console.log("TCT");
+    // console.log("TCT");
     getTransactions();
   }, [reFetch]);
 

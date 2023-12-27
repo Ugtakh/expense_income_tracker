@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { FaPlusCircle } from "react-icons/fa";
-import { DashArrow } from "@/components/iconsvg";
 import CategoryForm from "../../addCategoryForm";
 
 import RecordIcons from "./RecordIcons";
 import { TransactionContext } from "@/context/TransactionContext";
 import axios from "axios";
+import { getIcons } from "@/utils";
 
 const FormLeft = ({ closeForm }) => {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({});
   const { transactionData, changeTransactionData, addTransaction } =
     useContext(TransactionContext);
 
@@ -80,8 +80,12 @@ const FormLeft = ({ closeForm }) => {
         <h1 className="mt-4 mb-2 font-semibold">Category</h1>
         <details className="dropdown w-full">
           <summary className="m-1 flex items-center bg-[#F9FAFB] justify-between btn ">
-            Find or Choose category
-            <DashArrow />
+            {/* Find or Choose category
+            <DashArrow /> */}
+            <div className="flex items-center gap-2">
+              {getIcons("home", "green")}
+              {"HOME"}
+            </div>
           </summary>
 
           <ul className="shadow menu w-full dropdown-content z-[1] bg-base-100 rounded-box">

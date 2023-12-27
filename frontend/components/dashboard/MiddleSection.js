@@ -1,6 +1,6 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
-import { Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut } from "react-chartjs-2";
+
 import {
   ArcElement,
   BarElement,
