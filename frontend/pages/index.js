@@ -14,16 +14,6 @@ export default function Home() {
   const { user, logout } = useContext(UserContext);
   const { changeTheme, theme } = useContext(ThemeContext);
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push("/login");
-  //   }
-  // }, [user]);
-
-  // if (!user) {
-  //   return null;
-  // }
-
   return (
     <div className="bg-[#F6F6F6]">
       <Header />

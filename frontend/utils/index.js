@@ -1,6 +1,39 @@
-import { FaHome, FaGift, FaTaxi, FaWineGlassAlt } from "react-icons/fa";
+import {
+  FaHome,
+  FaGift,
+  FaTaxi,
+  FaRoad,
+  FaPeace,
+  FaBusAlt,
+  FaIdBadge,
+  FaCalendar,
+  FaMicrophone,
+  FaWineGlassAlt,
+  FaAirFreshener,
+} from "react-icons/fa";
+import {
+  MdBadge,
+  MdHomeFilled,
+  MdHourglassTop,
+  MdChildFriendly,
+  MdOutlineShoppingBag,
+} from "react-icons/md";
+import { BsGlobe, BsIntersect, BsMenuAppFill } from "react-icons/bs";
+import { RiImageFill } from "react-icons/ri";
+import { GiDeliveryDrone } from "react-icons/gi";
+import { BiPencil } from "react-icons/bi";
 
-// import { PiForkKnifeFill, PiTShirtFill } from "react-icons/pi";
+import {
+  PiExamFill,
+  PiLeafFill,
+  PiWatchFill,
+  PiLadderFill,
+  PiQuestionFill,
+  PiIntersectFill,
+  PiNumberFiveFill,
+  PiOrangeSliceFill,
+  PiNumberCircleSevenFill,
+} from "react-icons/pi";
 
 export const getIcons = (iconName = "home", iconColor = "salmon") => {
   const icons = {
