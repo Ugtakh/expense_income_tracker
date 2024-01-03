@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 
 import AddIcon from "./AddIcon";
 
 const CategoryForm = ({ open, closeForm }) => {
+  const [selectCategory, setSelectCategory] = useState({
+    name: "",
+    iconColor: "",
+    iconName: "",
+  });
   return (
     <dialog className="modal" open={open}>
-      <div className="modal-box flex flex-col max-w-lg shadow-2xl">
-        <div className="flex justify-between border-b-2 pb-3">
-          <h1 className="font-semibold">Add Category</h1>
-          <button onClick={closeForm}>X</button>
+      <div className="modal-box flex flex-col max-w-lg h-80 shadow-2xl ">
+        <div className="flex items-center justify-between border-b-2 pb-3">
+          <h1 className="font-semibold text-xl">Add Category</h1>
+          <button className="btn btn-circle " onClick={closeForm}>
+            X
+          </button>
         </div>
         <div className="flex items-center my-5">
           <AddIcon />
-          <div className="py-3 px-3 ml-4 bg-base-200 rounded-lg hover:border-purple-500 hover:border-2 w-full ">
-            <input type="text" className="bg-base-200 w-full " />
+          <div className="w-full ">
+            <input
+              type="text"
+              className="input input-bordered bg-base-200 w-full "
+            />
           </div>
         </div>
         <form className="modal-backdrop">

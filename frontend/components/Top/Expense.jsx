@@ -1,5 +1,6 @@
 import React from "react";
 import { IconThree, IconFour } from "../Logos";
+import { thousandify } from "@/utils";
 
 const Expense = ({ totalExpense }) => {
   return (
@@ -11,7 +12,7 @@ const Expense = ({ totalExpense }) => {
       <div>
         {totalExpense > 0 && (
           <span className="font-bold lg:text-4xl md:text-2xl text-xl text-red-400">
-            -{totalExpense}₮
+            -{thousandify(totalExpense)}₮
           </span>
         )}
         {!totalExpense && <div className="skeleton h-9 w-full"></div>}

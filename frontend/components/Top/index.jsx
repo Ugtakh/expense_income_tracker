@@ -7,16 +7,13 @@ const TopInfo = () => {
   const [totals, setTotals] = useState({ totalIncome: 0, totalExpense: 0 });
 
   const getTotalIncExp = async () => {
-    console.log("START");
     const {
       data: { totalIncome, totalExpense },
     } = await myAxios.get("/transactions/total");
     setTotals({ ...totals, totalIncome, totalExpense });
-    console.log("END");
   };
 
   useEffect(() => {
-    console.log("EE");
     getTotalIncExp();
   }, []);
 

@@ -5,7 +5,7 @@ const getAllTransaction = async (req, res) => {
   console.log("userId", userId);
   try {
     const transactions =
-      await sql`SELECT tr.name, tr.amount, tr.created_at, tr.id, tr.transaction_type, ct.iconname, ct.iconcolor FROM transactions tr INNER JOIN category ct ON tr.category_id=ct.id WHERE tr.user_id=${userId} ORDER BY created_at DESC`;
+      await sql`SELECT tr.name, tr.amount, tr.created_at, tr.id, tr.transaction_type, ct.name as category_name, ct.iconname, ct.iconcolor FROM transactions tr INNER JOIN category ct ON tr.category_id=ct.id WHERE tr.user_id=${userId} ORDER BY created_at DESC`;
 
     res.status(200).json({ message: "success", transactions });
   } catch (error) {
@@ -82,8 +82,59 @@ const getTotalIncomeExpense = async (req, res) => {
   }
 };
 
+const getChartData = async (req, res) => {
+  try {
+    // const { userId } = req.params;
+
+    const doughnutChart = await sql`
+      SELECT 
+        ct.name as category_name, 
+        SUM(amount) as total 
+      FROM transactions tr 
+      INNER JOIN 
+        category ct ON tr.category_id=ct.id
+      GROUP BY category_name;`;
+
+    const barChart = await sql`
+      SELECT
+        EXTRACT(MONTH FROM updated_at) AS month,
+        TO_CHAR(updated_at, 'Month') AS month_name,
+        SUM(CASE WHEN transaction_type = 'INC' THEN amount ELSE 0 END) AS income,
+        SUM(CASE WHEN transaction_type = 'EXP' THEN amount ELSE 0 END) AS expense
+      FROM
+          transactions
+      GROUP BY
+          month, month_name
+      ORDER BY
+          month;
+      `;
+    // console.log("data", doughnutChart);
+    // console.log("data", barChart);
+    const labels = barChart.map((row) => row.month_name);
+    const incomeData = barChart.map((row) => row.income);
+    const expenseData = barChart.map((row) => row.expense);
+
+    const dLabels = doughnutChart.map((e) => e.category_name);
+    const data = doughnutChart.map((e) => e.total);
+
+    res.status(201).json({
+      message: "success",
+      doughnutChart: { labels: dLabels, data },
+      barChart: {
+        labels,
+        incomeData,
+        expenseData,
+      },
+    });
+  } catch (error) {
+    console.log("ERR", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createTransaction,
   getAllTransaction,
   getTotalIncomeExpense,
+  getChartData,
 };

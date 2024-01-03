@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Record from "../record";
-import { TransactionContext } from "@/context/TransactionContext";
+import { TransactionContext } from "@/context/TransactionProvider";
 
 const BottomSection = () => {
   const { transactions } = useContext(TransactionContext);

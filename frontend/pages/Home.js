@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import { FaBeer, FaHome } from "react-icons/fa";
 import { UserContext } from "@/context/UserProvider";
-import { ThemeContext } from "@/context/ThemeContex";
+import { ThemeContext } from "@/context/ThemeProvider";
 import Header from "@/components/header";
 import Top from "@/components/Top";
 

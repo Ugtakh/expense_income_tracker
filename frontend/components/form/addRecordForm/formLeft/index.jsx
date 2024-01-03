@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import CategoryForm from "../../addCategoryForm";
 
 import RecordIcons from "./RecordIcons";
-import { TransactionContext } from "@/context/TransactionContext";
+import { TransactionContext } from "@/context/TransactionProvider";
 import axios from "axios";
 import { getIcons } from "@/utils";
 

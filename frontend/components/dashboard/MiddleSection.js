@@ -1,6 +1,4 @@
-import React from "react";
-import { Bar, Doughnut } from "react-chartjs-2";
-
+import React, { useEffect, useState } from "react";
 import {
   ArcElement,
   BarElement,
@@ -9,80 +7,39 @@ import {
   Legend,
   LinearScale,
 } from "chart.js";
+import DoughnurChart from "./DoughnurChart";
+import BarChart from "./BarChart";
+
+import myAxios from "@/utils/axios";
 
 Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, Legend);
 
 const MiddleSection = () => {
-  const data1 = {
-    labels: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [
-      {
-        label: "My First Dataset",
-        backgroundColor: "#85CC16",
-        data: [3000000, 3000000, 3000000, 3000000, 3000000, 3000000, 3000000],
-      },
-      {
-        label: "My Second Dataset",
-        backgroundColor: "#F97316",
-        data: [2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000],
-      },
-    ],
+  const [barChartData, setBarChartData] = useState(null);
+  const [categoryData, setCategoryData] = useState(null);
+
+  const getChartData = async () => {
+    try {
+      const {
+        data: { barChart, doughnutChart },
+      } = await myAxios.get("/transactions/chartdata/1234");
+      console.log("CHART-DATA", barChart);
+      console.log("CHART-DATA", doughnutChart);
+
+      setCategoryData(doughnutChart);
+      setBarChartData(barChart);
+    } catch (error) {}
   };
 
-  const data2 = {
-    datasets: [
-      {
-        data: [5000000, 5000000, 5000000, 5000000, 5000000],
-
-        backgroundColor: [
-          "#1C64F2",
-          "#E74694",
-          "#FDBA8C",
-          "#16BDCA",
-          "#F2901C",
-        ],
-        hoverBackgroundColor: [
-          "#1C64F2",
-          "#E74694",
-          "#FDBA8C",
-          "#16BDCA",
-          "#F2901C",
-        ],
-      },
-    ],
-    labels: ["Bill", "Food ", "Shopping", "Insurance", "Clothing"],
-  };
-
-  const options1 = {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
-  const options2 = {
-    legend: {
-      align: "start",
-      position: "right",
-
-      labels: {
-        display: false,
-        position: "right",
-      },
-    },
-  };
+  useEffect(() => {
+    console.log("E2");
+    getChartData();
+  }, []);
 
   return (
     <div className="w-full grid grid-cols-2 my-10 gap-9">
-      <div className="card bg-white flex justify-center items-center p-4">
-        <Bar data={data1} options={options1} />
-      </div>
-      <div className="card bg-white flex justify-center items-center p-4">
-        <div className="h-96 w-96">
-          <Doughnut options={options2} data={data2} />
-        </div>
-      </div>
+      <BarChart barChartData={barChartData} />
+      <DoughnurChart categoryData={categoryData} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import Balance from "@/components/steps/Balance";
 import Currency from "@/components/steps/Currency";
 import Finish from "@/components/steps/Finish";
-import { StepContext } from "@/context/StepContext";
+import { StepContext } from "@/context/StepProvider";
 import React, { useContext, useState } from "react";
 
 const StepOne = () => {

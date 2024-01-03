@@ -1,5 +1,6 @@
 import React from "react";
 import { IconOne, IconTwo } from "../Logos";
+import { thousandify } from "@/utils";
 
 const Income = ({ totalIncome }) => {
   return (
@@ -11,7 +12,7 @@ const Income = ({ totalIncome }) => {
       <div>
         {totalIncome > 0 && (
           <span className="font-bold lg:text-4xl md:text-2xl text-xl text-green-500">
-            {totalIncome}₮{console.log(totalIncome)}
+            {thousandify(totalIncome)}₮
           </span>
         )}
 

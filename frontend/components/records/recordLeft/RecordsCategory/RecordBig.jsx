@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import RecordCategory from "./RecordCategory";
 import { array } from "@/data";
 import CategoryForm from "@/components/form/addCategoryForm";
+import { CategoryContext } from "@/context/CategoryProvider";
 
 const RecordBig = () => {
   const [open, setOpen] = useState(false);
+  const { categories, selectedCategories, onSelectCategory } =
+    useContext(CategoryContext);
 
   const closeForm = () => {
     console.log("Formee");
@@ -13,12 +16,18 @@ const RecordBig = () => {
 
   return (
     <div>
+      {console.log("SC", selectedCategories)}
       <div className="flex justify-between">
-        <h1>Category</h1>
-        <h1 className="text-slate-400">Clear</h1>
+        <h1 className="font-semibold text-slate-700">Category</h1>
+        <button className="btn btn-xs">Clear</button>
       </div>
-      {array.map((el) => (
-        <RecordCategory data={el.name} key={el.id} />
+      {categories?.map((category) => (
+        <RecordCategory
+          selectedCategories={selectedCategories}
+          onSelectCategory={onSelectCategory}
+          name={category.name}
+          key={category.id}
+        />
       ))}
       <button
         onClick={() => {
