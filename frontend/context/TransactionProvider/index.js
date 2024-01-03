@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserProvider";
-import axios from "axios";
 import { toast } from "react-toastify";
 import myAxios from "@/utils/axios";
 
@@ -29,7 +28,7 @@ const TransactionProvider = ({ children }) => {
     console.log("DATA", transactionData);
     console.log("USER", user);
     try {
-      const { data } = await axios.post("http://localhost:8008/transactions", {
+      const { data } = await myAxios.post("/transactions", {
         ...transactionData,
         userId: "06abd39d-0523-4749-b99e-28dc147ad222",
       });
